@@ -1,0 +1,119 @@
+<html>
+<head>
+    <title> Musical Artists </title>
+</head>
+<body bgcolor="#98FF98">
+
+<center>
+<span style="font-size:x-large; color:purple;">Welcome To Artists DB</span>
+</center>
+<div id="header" style="text-align:center; font-size:150%;">
+<table border=1 style="margin-left:auto; margin-right:auto; font-size:20px;">
+	<tr>
+		<td style="background-color:#FFF39A;" id="mariadb">
+			<table border=2 style="margin-left:auto; margin-right:auto; font-size:20px;">
+				<tr>
+				<td> Artist</td>
+				<td> Genre</td>
+				<td> Grammys</td>
+				<td> Monthly Listeners</td>
+				<td> Top Song</td>
+				<td> An Album</td>
+				</tr>
+				{% for artist in artists %}
+<tr style="background-color:#FFDF9A;">
+<td>{{artist[0]}}</td>
+<td>{{artist[1]}}</td>
+<td>{{artist[2]}}</td>
+<td>{{artist[3]}}</td>
+<td>{{artist[4]}}</td>
+<td>{{artist[5]}}</td>
+</tr>
+{% endfor %}
+</table>
+<p style="margin-left:auto; margin-right:auto;">
+<form action="/">
+        <select name="genre" id="language" style="font-size:100%; margin-left:auto; margin-right:auto;">
+                {% for genre in genres %}
+                <option value="{{genre[0]}}">{{genre[0]}}</option>
+                        {% endfor %}
+        </select>
+        <input type="submit" value="Filter" name="submit" style="font-size:100%">
+</form>
+<form action="/addartists">
+        <input type="submit" value="Add an artist!" style="font-size:100%">
+</form>
+</p>
+		</td>
+<td id="redis">
+	<span style="text-align:left; vertical-align:text-top; font-size:100%; color:purple;">Album Queue</span>
+	<table border=1 style="margin-left:auto; margin-right:auto;font-size:20px;">
+		<tr style="background-color:#FFF39A;">	
+			<td>Position</td>
+			<td>Album</td>
+			<td>Tracks</td>
+		</tr>
+{% for info in queue %}
+<tr style="background-color:#FFDF9A;">
+<td>{{info[2]}}</td>
+<td>{{info[0]}}</td>
+<td>{{info[1]}}</td>
+</tr>
+{% endfor %}
+	</table>
+	<form action="/">
+        <select name="album" id="language" style="font-size:100%;">
+                {% for album in albums %}
+                <option value="{{album[0]}}">{{album[0]}}</option>
+                        {% endfor %}
+        </select>
+        <input type="submit" value="Add to queue" name="add" style="font-size:100%">
+	</form>
+	<form action="/">
+		<input type="submit" value="Listen" name="rem" style="font-size:100%">
+	</form>
+	<span style="text-align:left; vertical-align:text-top; font-size:100%; color:purple;">Like Artists</span>
+	<table border=1 style="margin-left:auto; margin-right:auto; font-size:20px;">
+                <tr style="background-color:#FFF39A;">
+			<td><form action"/">
+					<select name="rat" id="language" style="font-size:100%; margin-left:auto; margin-right:auto;">
+                {% for artist in artists %}
+                <option value="{{artist[0]}}">{{artist[0]}}</option>
+                        {% endfor %}
+					</select>
+			</td>
+			<td> <input type="submit" value="Like" name="like" style="font-size:100%">
+			</td></form>
+                </tr>
+		{% for like in likes %}
+		<tr style="background-color:#FFDF9A;">
+		<td>{{like[0]}}</td>
+		<td>{{like[1]}}</td>
+		</tr>
+		{% endfor %}
+        </table>
+
+
+</td>
+</tr>
+<tr>
+<td>
+	<ul style="list-style-type:circle">
+	{% for review in reviews %}
+	<li><a href="/editreviews/{{review["name"]}}">{{review["name"]}}</a>: by {{review["artist"]}}, a {{review["orating"]}}/10</li>
+	{% endfor %}
+	</ul>
+
+<span style="font-size:x-large; color:purple;">Or filter by a key/value pair</span>
+<form method="POST">
+        <input type"text" name="key" placeholder="key" />
+        <input type"text" name="value" placeholder="value" />
+        <input type="submit" name="newpair" value="Submit" />
+</form>
+
+</td>
+<td></td></tr>
+</table>
+</div>
+</body>
+</html>

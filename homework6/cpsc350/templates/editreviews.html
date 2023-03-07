@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title> Edit {{review["name"]}}</title>
+</head>
+<body bgcolor="#98FF98">
+
+<center>
+	<span style="font-size:x-large; color:purple;"><a href="/">Edit {{review["name"]}}</a></span>
+</center>
+<form method="POST">
+	<p>Album:</p>
+	<p>{{review["name"]}}</p>
+	<p>Artist:</p>
+	<input type="text" name="artist" value="{{review["artist"]}}" />
+	<br/>
+	<p>Official Rating:</p>
+        <input type="text" name="orating" value="{{review["orating"]}}"/>
+        <br/>
+	<p>Units Sold:</p>
+        <input type="text" name="sold" value="{{review["sold"]}}" />
+        <br/>
+	<p>Features:</p>
+        <input type="text" name="features" value="{{review["features"]}}" />
+        <br/>
+	 <p>Robert Rating:</p>
+        <input type="text" name="rrating" value="{{review["rrating"]}}" />
+        <br/>
+	 <p>Emma Rating:</p>
+        <input type="text" name="erating" value="{{review["erating"]}}" />
+        <br/>
+	 <p>Under-rated Song:</p>
+        <input type="text" name="underrated" value="{{review["underrated"]}}" />
+        <br/>
+	<p>Over-rated Song:</p>
+        <input type="text" name="overrated" value="{{review["overrated"]}}" />
+        <br/>
+	 {% for x,y in review.items() %}
+        {% if x not in ('artist', 'orating', 'sold', 'features', 'rrating', 'erating', 'underrated', 'overrated', 'name', '_id') %}
+        <p>{{x}}: </p>
+	<input type="text" name={{x}} value="{{y}}" />
+	<br/>
+        {% endif %}
+        {% endfor %}
+	<br/>
+	<input type="submit" name="submitedit" value="Submit"/>
+</form>
+<span style="font-size:x-large; color:purple;">Or, add a {{review["name"]}} key/value pair</span>
+<form method="POST">
+	<input type"text" name="key" placeholder="key" />
+	<input type"text" name="value" placeholder="value" />
+	<input type="submit" name="newpair" value="Submit" />
+</form>
+
+</div>
+</body>
+</html>
